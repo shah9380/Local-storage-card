@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .card{
+            margin: 10% auto 2% auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            background-color: blanchedalmond;
+            max-width: 380px;
+            padding: 30px;
+            box-sizing: border-box;
+            box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+        }
+        .information{
+            display: flex;
+            width: 90%;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        h2{
+            text-align: center;
+            width: 100%;
+        }
+        #ResetBtn{
+            font-size: 14px;
+            background-color: rgb(199, 157, 238);
+            border: none;
+            box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            padding: 10px 20px;
+            display: block;
+            margin: 0 auto;
+            border-radius: 6px;
+        }
+        #ResetBtn:hover{
+            background-color:rgb(167, 96, 233) ;
+        }
+        #ResetBtn:active{
+            transform: scale(0.97);
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>User Information Card</h2>
+        <div class="information">
+            <div id="keys">
+                
+            </div>
+            <div id="values">
+                
+            </div>
+        </div>
+    </div>
+    <form action="">
+        <button id="ResetBtn" onclick="clearing()">Reset</button>
+    </form>
+    <script>
+        let keyswegot = document.getElementById('keys');
+        let valueswegot = document.getElementById('values');
+        let Btn = document.getElementById('ResetBtn');
+        const obj = {};
+        const ArrayOfKeys = ["First Name:","Last Name:","Country:","phone number:","State:","City:","Village:"];
+        // const prop1 = "First Name";
+        // const prop2 = "Last Name";
+        // const prop3 = "Country";
+        // const prop4 = "phone number";
+        // const prop5 = "State";
+        // const prop6 = "City";
+        // const prop7 = "Village";
+
+        // obj[prop1] = prompt("First Name");
+        // obj[prop2] = prompt("Last Name");
+        // obj[prop3] = prompt("Country");
+        // obj[prop4] = prompt("Phone Number");
+        // obj[prop5] = prompt("State");
+        // obj[prop6] = prompt("City");
+        // obj[prop7] = prompt("Village");
+
+        
+        
+        if(localStorage.getItem('user')){
+            var myUser1 = JSON.parse(localStorage.getItem('user'));
+            console.log(myUser1);
+            for(const key in myUser1){
+                const keyCr = document.createElement('p');
+                const valueCr = document.createElement('p');
+                keyCr.innerText = key;
+                valueCr.innerText = myUser1[key];
+                keyswegot.appendChild(keyCr);
+                valueswegot.appendChild(valueCr);
+            }
+        }else{
+            for(let i=0;i<ArrayOfKeys.length;i++){
+            const keyCr = document.createElement('p');
+            const valueCr = document.createElement('p');
+            keyCr.innerText = ArrayOfKeys[i];
+            obj[ArrayOfKeys[i]] = prompt(ArrayOfKeys[i]);
+            valueCr.innerText = obj[ArrayOfKeys[i]];
+            keyswegot.appendChild(keyCr);
+            valueswegot.appendChild(valueCr);
+            }
+            localStorage.setItem('user', JSON.stringify(obj));
+        }
+        
+        // sessionStorage['myUser'] = JSON.stringify(obj);
+        // const myObj = JSON.parse(sessionStorage.myUser);
+        // console.log(myObj.firstName);
+        function clearing(){
+            localStorage.clear();
+        }
+    </script>
+</body>
+</html>
